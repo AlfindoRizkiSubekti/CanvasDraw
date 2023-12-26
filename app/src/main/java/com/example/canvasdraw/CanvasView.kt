@@ -22,9 +22,7 @@ class CanvasView(context: Context, attrs: AttributeSet?) : View(context, attrs) 
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
-
-        // Gambar kotak pertama (garis luar saja)
+        // Gambar kotak pertama
         paint.color = Color.BLUE
         paint.style = Paint.Style.STROKE
         canvas.drawRect(square.positionX, square.positionY, square.positionX + square.squareSize, square.positionY + square.squareSize, paint)

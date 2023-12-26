@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -27,7 +28,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        //db?.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         dropTable(db)
         createTable(db)
     }
@@ -55,15 +55,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             val yIndex = it.getColumnIndex(COLUMN_Y)
 
             while (it.moveToNext()) {
-                // Check if the column indices are valid
                 if (idIndex != -1 && xIndex != -1 && yIndex != -1) {
                     val id = it.getLong(idIndex)
                     val x = it.getFloat(xIndex)
                     val y = it.getFloat(yIndex)
                     points.add(Point(id, x, y))
                 } else {
-                    // Handle the case where the columns are not found
-                    // Log.e("DatabaseHelper", "Column not found in the result set")
+                    Log.e("DatabaseHelper", "Column not found in the result set")
                 }
             }
         }
